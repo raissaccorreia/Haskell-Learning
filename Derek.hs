@@ -7,6 +7,7 @@
 
 import Data.List
 import System.IO
+import Distribution.Simple.Compiler (absolutePackageDBPaths)
 
 maxInt = maxBound :: Int
 minInt = minBound :: Int
@@ -30,6 +31,7 @@ floorVal = floor (4.7)
 
 -- && || not() bool operations
 -- :t to learn about types of a function example :t truncate
+-- :r to recompile and :q to quit or ctrl+d
 
 primeNumbers = [3,5,7,11]
 morePrimes = primeNumbers ++ [13,17,19,23,29]
@@ -55,5 +57,63 @@ listTimes2 = [x * 2 | x <- [1..10]]
 listTimes3 = [x * 3 | x <- [1..10], x * 3 <= 50]
 divBy9N13 = [x | x <- [1..500], x `mod` 13 == 0, x `mod` 9 == 0]
 sortedList = sort [9,1,8,3,4,7,6]
+sumOfLists = zipWith (+) [1,2,3,4,5] [6,7,8,9,10]
+listBiggerThan5 = filter (>5) morePrimes2
+evensUpTo20 = takeWhile (<= 20) [2,4..]
+multOfList = foldl (*) 1 [2,3,4,5]
+multTables = [[x * y | y <- [1..10]] | x <- [1..10]]
 
--- 22m55s
+main = do
+    putStrLn "What's your name"
+    name <- getLine
+    putStrLn ("Hello " ++ name)
+
+-- functions and type declarations
+
+-- funcName param1 param2 = operations (returned value)
+
+addMe x y = x + y
+addTuples (x, y) (x2,y2) = (x + x2, y + y2)
+
+-- enum like
+
+whatAge 16 = "You can drive"
+whatAge 18 = "You can vote"
+whatAge 21 = "You're an adult"
+whatAge x = "Nothing important"
+
+-- conditional expressions
+isOdd n
+    | mod n 2 == 0 = False
+    | otherwise = True
+
+whatGrade age
+    | (age >= 5) && (age<=6) = "Kindergarten"
+    | (age > 6) && (age <= 10) = "Elementary School"
+    | (age > 10) && (age <= 14) = "Middle School"
+    | (age > 14) && (age <= 18) = "High School"
+    | otherwise = "College"
+
+-- recursion exemple
+factorial 0 = 1
+factorial n = n * factorial (n - 1)
+
+-- where clause
+
+batAvgRating hits atBats
+    | avg <= 0.20 = "Terrible"
+    | avg <= 0.25 = "Average"
+    | avg <= 0.28 = "Good"
+    | otherwise = "Awesome"
+    where avg = hits / atBats
+
+-- operating with lists element by element
+
+times4 x = x * 4
+listTimes4 = map times4 [1,2,3,4,5]
+
+areStringsEq [] [] = True
+areStringsEq (x:xs) (y:ys) = x == y && areStringsEq xs ys
+areStringsEq _ _ = False
+
+
