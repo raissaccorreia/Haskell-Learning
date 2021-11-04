@@ -116,4 +116,59 @@ areStringsEq [] [] = True
 areStringsEq (x:xs) (y:ys) = x == y && areStringsEq xs ys
 areStringsEq _ _ = False
 
+-- function can call function as parameter
 
+doMult func = func 3
+num3Times4 = doMult times4
+
+-- common if then else
+
+doubleEvenNumber y =
+    if (y `mod` 2 /= 0)
+        then y
+        else y * 2
+
+-- switch case
+
+getClass n = case n of
+    5 -> "Go to Kindergarten"
+    6 -> "Go to elementary school"
+    x | x > 6 && x <= 10 -> "Go to middle school"
+    x | x > 10 && x <= 14 -> "Go to high school"
+    _ -> "Go to college"
+
+module SampFunctions (getClass, doubleEvenNumber) where
+import SampFunctions
+
+data BaseballPlayer = Pitcher
+                    | Catcher
+                    | Infielder
+                    | Outfield
+                    deriving Show
+
+-- struct
+
+data Customer = Customer String String Double
+    deriving Show
+
+tomSmith = Customer "Tom Smith" "123 Main" 20.50
+getBalance (Customer _ _ b) = b
+
+data Employee = Employee {
+    empName :: String,
+    empID :: Int,
+    empSalary :: Float
+} deriving (Eq, Show)
+
+samSmith = Employee {
+    empName = "Sam Smith",
+    empID = 200,
+    empSalary = 20000
+}
+
+-- file IO
+
+writeToFile = do
+    theFile <- openFile "test.txt" WriteMode
+    hPutStrLn theFile ("Random line of text")
+    hClose theFile
